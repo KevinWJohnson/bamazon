@@ -1,0 +1,23 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "This app will take in orders from customers and deplete stock",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KevinWJohnson/bamazon.git"
+  },
+  "author": "Kevin Johnson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KevinWJohnson/bamazon/issues"
+  },
+  "homepage": "https://github.com/KevinWJohnson/bamazon#readme",
+  "dependencies": {
+    "inquirer": "^6.0.0",
+    "mysql": "^2.15.0"
+  }
+}
