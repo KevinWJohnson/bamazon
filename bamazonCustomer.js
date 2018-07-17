@@ -22,7 +22,7 @@ connection.connect(function (err) {
   if (err) throw err;
   // run the display products function after the connection is made to prompt the user
   displayProducts();
-  buyOrQuit();
+  
 });
 
 
@@ -32,6 +32,7 @@ function displayProducts() {
     //console.log(res);
     console.log("\n");
     console.table('Products Available for Sale', results);
+    buyOrQuit();
   });
 }
 
