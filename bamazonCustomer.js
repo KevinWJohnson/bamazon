@@ -124,24 +124,33 @@ function buyItem() {
                 stock_quantity: itemsRemaining
               },
               {
-                item_id: parseInt(chosenItem.item_id)
+                item_id: chosenItem.item_id
               }
             ],
             function (error) {
               if (error) throw err;
               console.log("Order placed successfully!");
               console.log("The total cost of your purchase is $" + totalCost);
-              displayProducts();
+              // Display the products again after 5 seconds to let the
+              // the user see that the previous order was successfull and the
+              // total cost of the previous purchase
+              setTimeout(function () { displayProducts(); }, 5000);
+
             }
           );
         }
         else {
           // There was not enough quanties to meet the customer's request
-          console.log("You have requested to buy " + parseInt(answer.buyQuantiy) + "units of");
+          console.log("\n")
+          console.log("You have requested to buy " + itemsBuyQuantity + " units of");
           console.log(chosenItem.product_name);
           console.log("The store only has " + chosenItem.stock_quantity + " items");
-          console.log("Insufficient quantity!");
-          displayProducts();
+          console.log("There is insufficient quantity to meet your request!");
+          // Display the products again after 7 seconds to let the
+          // the user see that there was insufficient quantity to fill
+          // the user's request
+          setTimeout(function () { displayProducts(); }, 7000);
+
         }
       });
   });
