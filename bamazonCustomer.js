@@ -22,7 +22,7 @@ connection.connect(function (err) {
   if (err) throw err;
   // run the display products function after the connection is made to prompt the user
   displayProducts();
-  
+
 });
 
 
@@ -35,21 +35,6 @@ function displayProducts() {
     buyOrQuit();
   });
 }
-
-function displayOrder() {
-  // Display the table then goto BuyOrQuit function
-  let displayProducts = function () {
-    return new Promise(function (resolve, reject) {
-      resolve('Display Product Table');
-    });
-  };
-
-  displayProducts().then(function () {
-    return buyOrQuit();
-  });
-};
-
-
 
 
 
@@ -78,6 +63,7 @@ function buyOrQuit() {
 // the function called if the customer wants to buy an item
 function buyItem() {
   // query the database for all products being sold
+  //console.log("inside buyItem - before prompt")
   connection.query("SELECT * FROM products", function (err, results) {
     if (err) throw err;
     // Having the User select the product ID of the item they want to buy
@@ -89,7 +75,7 @@ function buyItem() {
           choices: function () {
             var choiceArray = [];
             for (var i = 0; i < results.length; i++) {
-              choiceArray.push(results[i].item_id);
+              choiceArray.push(results[i].item_id.toString());
             }
             return choiceArray;
           },
@@ -105,7 +91,7 @@ function buyItem() {
         // get the information of the chosen item
         var chosenItem;
         for (var i = 0; i < results.length; i++) {
-          if (results[i].item_id === answer.choice) {
+          if (results[i].item_id.toString() === answer.choice) {
             chosenItem = results[i];
           }
         }
@@ -113,7 +99,7 @@ function buyItem() {
         // determine if the store has enough quanties of the product to meet the 
         // customer's request
 
-        var itemsInStock = chosenItem.stock_quantity;
+        var itemsInStock = parseInt(chosenItem.stock_quantity);
         var itemsBuyQuantity = parseInt(answer.buyQuantity);
 
         if (itemsInStock >= itemsBuyQuantity) {
@@ -132,19 +118,20 @@ function buyItem() {
 
           // Update database with the new quantity
           connection.query(
-            "UPDATE auctions SET ? WHERE ?",
+            "UPDATE products SET ? WHERE ?",
             [
               {
                 stock_quantity: itemsRemaining
               },
               {
-                item_id: chosenItem.item_id
+                item_id: parseInt(chosenItem.item_id)
               }
             ],
             function (error) {
               if (error) throw err;
               console.log("Order placed successfully!");
-              displayOrder();
+              console.log("The total cost of your purchase is $" + totalCost);
+              displayProducts();
             }
           );
         }
@@ -154,11 +141,12 @@ function buyItem() {
           console.log(chosenItem.product_name);
           console.log("The store only has " + chosenItem.stock_quantity + " items");
           console.log("Insufficient quantity!");
-          displayOrder();
+          displayProducts();
         }
       });
   });
 }
+
 
 function quitApp() {
   console.log("\n");
