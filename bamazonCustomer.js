@@ -144,7 +144,7 @@ function buyItem() {
           console.log("\n")
           console.log("You have requested to buy " + itemsBuyQuantity + " units of");
           console.log(chosenItem.product_name);
-          console.log("The store only has " + chosenItem.stock_quantity + " items");
+          console.log("The store only has " + chosenItem.stock_quantity + " items.");
           console.log("There is insufficient quantity to meet your request!");
           // Display the products again after 7 seconds to let the
           // the user see that there was insufficient quantity to fill

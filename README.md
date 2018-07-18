@@ -25,7 +25,7 @@ number of units of the product he or she wishes to buy.
 quantity of that item in the store, the quantity of that item in the store is reduced by the units the
 user requested to buy, the total cost of the purchase is displayed to the user, and the message that the order was successfully placed is displayed.
 
-    The Total Cost Displayed:
+    The Total Cost and Successful Order Message Displayed:
     ![Total Cost Message](/images/bamazon_Successful_Purchase_A.JPG)
 
     The Product Table with the Quantity of that Item Reduced:
